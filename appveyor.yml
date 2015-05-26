@@ -25,10 +25,10 @@ cache:
   - C:\Ruby193\bin
   - C:\Ruby200\lib\ruby\gems\2.0.0
   - C:\Ruby200\bin
-  - C:\Ruby21\bin
   - C:\Ruby21\lib\ruby\gems\2.1.0
-  - C:\Ruby22\bin
+  - C:\Ruby21\bin
   - C:\Ruby22\lib\ruby\gems\2.2.0
+  - C:\Ruby22\bin
 
 install:
   - git submodule update --init --recursive
@@ -47,10 +47,11 @@ install:
   - gem install --local bundler.gem --no-ri --no-rdoc ## appveyor often stops `gem install bundler`..?
 
 build_script:
+  - ruby -rfileutils -e 'FileUtils.rm_r(File.join(Gem.dir, "cache", "bundler")) if Dir.exists?(File.join(Gem.dir, "cache", "bundler"))'
   - bundle install --jobs 3 --retry 3
   - net user
   - net localgroup
-  - net user appveyor p@ssword55
 
 test_script:
+  - net user appveyor %WINDOWS_PASSWORD% # set by webui
   - bundle exec rspec -fd --backtrace -r .\integration-test\winrm\spec_helper.rb .\integration-test\winrm

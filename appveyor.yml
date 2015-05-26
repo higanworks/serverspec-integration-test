@@ -5,7 +5,7 @@ platform:
   - x64
 
 environment:
-  bundle_gemfile: serverspec-integration-test/Gemfile.winrm
+  bundle_gemfile: integration-test/Gemfile.winrm
   bundler_url: https://rubygems.org/downloads/bundler-1.9.9.gem
 
   matrix:
@@ -54,4 +54,4 @@ build_script:
   - net user appveyor p@ssword55
 
 test_script:
-  - bundle exec rspec -fd --backtrace -r .\serverspec-integration-test\winrm\spec_helper.rb .\serverspec-integration-test\winrm
+  - bundle exec rspec -fd --backtrace -r .\integration-test\winrm\spec_helper.rb .\integration-test\winrm

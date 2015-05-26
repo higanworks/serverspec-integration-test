@@ -18,7 +18,6 @@ matrix:
   allow_failures:
     - ruby_version: "22" # waiting for net-ssh update
 
-clone_folder: c:\projects\serverspec-integration-test
 clone_depth: 5
 
 cache:

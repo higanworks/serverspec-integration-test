@@ -3,11 +3,12 @@ require 'winrm'
 
 set :backend, :winrm
 
-user = 'appveyor'
-pass = ENV['WINDOWS_PASSWORD']
-endpoint = "http://127.0.0.1:5985/wsman"
+opts = {
+  user: 'appveyor',
+  password: ENV['WINDOWS_PASSWORD'],
+  endpoint: "http://127.0.0.1:5985/wsman",
+  operation_timeout: 180
+}
 
-winrm = ::WinRM::WinRMWebService.new(endpoint, :ssl, :user => user, :pass => pass, :basic_auth_only => true)
-winrm.set_timeout 300 # 5 minutes max timeout for any operation
+winrm = ::WinRM::Connection.new(opts)
 Specinfra.configuration.winrm = winrm
-
